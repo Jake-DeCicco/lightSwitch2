@@ -9,11 +9,11 @@ void flip()
 {
 	resetMotorEncoder(piston);
 
-	while(getMotorEncoder(piston) < 180)
+	while(getMotorEncoder(piston) < 178)
 	{
 		motor[piston] = 30;
 	}
-	if(getMotorEncoder(piston) >= 180)
+	if(getMotorEncoder(piston) >= 178)
 	{
 		motor[piston] = 0;
 	}
@@ -25,6 +25,10 @@ void waitForClap()
 
 	while(SensorValue(sound) < 60)
 	{
+		if(SensorValue(button) == 1)
+	  {
+	    flip();
+	  }
 	}
 	displayBigTextLine(2, "sound: %d",SensorValue(sound));
 	if(SensorValue(sound) >= 60)
@@ -50,5 +54,7 @@ task main()
 	   displayBigTextLine(8, "motorSpeed: %d",motor[piston]);
 
 	   waitForClap();
+
+
 	 }
 }
